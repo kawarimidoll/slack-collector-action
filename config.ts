@@ -82,7 +82,7 @@ export const config: Config = {
     mustReadKeywords: envList("MUST_READ_KEYWORDS", []),
     mustReadMentions: envList("MUST_READ_MENTIONS", ["channel", "here"]),
     includePublicChannels: envBool("INCLUDE_PUBLIC_CHANNELS", true),
-    includePrivateChannels: envBool("INCLUDE_PRIVATE_CHANNELS", true),
+    includePrivateChannels: envBool("INCLUDE_PRIVATE_CHANNELS", false),
     includeGroupDMs: envBool("INCLUDE_GROUP_DMS", false),
     includeDirectDMs: envBool("INCLUDE_DIRECT_DMS", false),
     targetChannels: envList("TARGET_CHANNELS", []),

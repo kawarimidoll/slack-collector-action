@@ -27,7 +27,7 @@ Deno.test("config.digest: デフォルト値が正しい", () => {
     assertEquals(config.digest.includePublicChannels, true);
   }
   if (!Deno.env.get("INCLUDE_PRIVATE_CHANNELS")) {
-    assertEquals(config.digest.includePrivateChannels, true);
+    assertEquals(config.digest.includePrivateChannels, false);
   }
   if (!Deno.env.get("INCLUDE_GROUP_DMS")) {
     assertEquals(config.digest.includeGroupDMs, false);

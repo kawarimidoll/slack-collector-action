@@ -91,7 +91,7 @@ jobs:
 | `must-read-keywords`       | `[]`                               | 必読抽出キーワード (例: `["myname", "important"]`)                             |
 | `must-read-mentions`       | `["channel", "here"]`              | 必読抽出メンショングループ (例: `["channel", "here"]`)                         |
 | `include-public-channels`  | `"true"`                           | パブリックチャンネルを含める                                                   |
-| `include-private-channels` | `"true"`                           | プライベートチャンネルを含める                                                 |
+| `include-private-channels` | `"false"`                          | プライベートチャンネルを含める                                                 |
 | `include-group-dms`        | `"false"`                          | グループ DM を含める                                                           |
 | `include-direct-dms`       | `"false"`                          | 1 対 1 DM を含める                                                             |
 | `target-channels`          | `[]`                               | 未参加でも取得するチャンネル (例: `["general"]`)                               |

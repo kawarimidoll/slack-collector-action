@@ -22,7 +22,7 @@ inputs:
     default: "true"
   include-private-channels:
     description: "プライベートチャンネルを含める"
-    default: "true"
+    default: "false"
   include-group-dms:
     description: "Include group DMs"
     default: "false"
