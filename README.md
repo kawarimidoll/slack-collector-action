@@ -117,15 +117,8 @@ inputs では対応しきれないカスタマイズ（LLM
 ## ローカル開発
 
 ```sh
-# Deno をインストール
-curl -fsSL https://deno.land/install.sh | sh
-
 # 環境変数を設定
-export SLACK_TOKEN=xoxc-...
-export SLACK_COOKIE=xoxd-...
-export SLACK_WORKSPACE=your-workspace
-export GITHUB_TOKEN=ghp_...
-export MUST_READ_KEYWORDS='["myname", "keyword"]'
+cp .envrc.example .envrc
 
 # 接続テスト
 deno task ping

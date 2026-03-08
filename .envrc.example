@@ -1,0 +1,26 @@
+# --- 必須 ---
+# extract-token.js で xoxc, workspace を取得
+# d cookie は DevTools > Application > Cookies から手動コピーが必要
+export SLACK_TOKEN=xoxc-xxxxx
+export SLACK_COOKIE=xoxd-xxxxx
+export SLACK_WORKSPACE=your-workspace
+
+# https://github.com/settings/tokens で fine-grained PAT を作成（models:read スコープ）
+# GitHub Actions で動かす場合は自動トークンが使えるので不要
+export GITHUB_TOKEN=ghp_xxxxx
+
+# --- 任意（デフォルト値はコメント内に記載） ---
+# export MUST_READ_KEYWORDS='[]'
+# export MUST_READ_MENTIONS='["channel", "here"]'
+# export INCLUDE_PUBLIC_CHANNELS=true
+# export INCLUDE_PRIVATE_CHANNELS=true
+# export INCLUDE_GROUP_DMS=false
+# export INCLUDE_DIRECT_DMS=false
+# export TARGET_CHANNELS='[]'
+# export EXCLUDE_CHANNELS='[]'
+# export EXCLUDE_URL_HOSTS='["slack.com", "meet.google.com"]'
+# export HOURS_BACK=24
+# export LLM_MODEL=openai/gpt-4.1-mini
+# export OUTPUT_DIR=./output
+
+# 利用可能LLM_MODEL一覧: https://github.com/marketplace/models
