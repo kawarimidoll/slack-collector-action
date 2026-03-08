@@ -1,0 +1,21 @@
+{
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.19"
+  },
+
+  // Slack Daily Digest - タスク定義
+  // deno task ping        → 接続チェック（Slack / LLM の疎通確認）
+  // deno task start       → 全チャンネル本番実行
+  "tasks": {
+    // .env から SLACK_WORKSPACE を読み取るヘルパー
+    "_ws": "deno run --allow-env=SLACK_WORKSPACE resolve_workspace.ts",
+
+    // --allow-net のホストは _ws から動的解決
+    "_run": "deno run --allow-env --allow-net=$(deno task _ws).slack.com,models.github.ai",
+
+    "ping": "deno task _run ping.ts",
+    "start": "deno task _run --allow-write=./output main.ts",
+
+    "ci": "deno lint && deno fmt --check && deno test --allow-env"
+  }
+}

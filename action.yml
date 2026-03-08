@@ -1,0 +1,86 @@
+name: "Slack Daily Digest"
+description: "Generate a daily digest from Slack channels and DMs using session tokens (no admin permissions required)"
+
+inputs:
+  slack-token:
+    description: "Slack session token (xoxc-...)"
+    required: true
+  slack-cookie:
+    description: "Slack d cookie (xoxd-...)"
+    required: true
+  slack-workspace:
+    description: "Slack workspace name (e.g. your-workspace)"
+    required: true
+  must-read-keywords:
+    description: 'JSON array of keywords for must-read extraction (e.g. ["myname", "important"])'
+    default: "[]"
+  must-read-mentions:
+    description: 'JSON array of mention groups for must-read (e.g. ["channel", "here"])'
+    default: '["channel", "here"]'
+  include-public-channels:
+    description: "パブリックチャンネルを含める"
+    default: "true"
+  include-private-channels:
+    description: "プライベートチャンネルを含める"
+    default: "true"
+  include-group-dms:
+    description: "Include group DMs"
+    default: "false"
+  include-direct-dms:
+    description: "Include 1:1 DMs"
+    default: "false"
+  target-channels:
+    description: 'JSON array of channel names to include even if not joined (e.g. ["general", "announce"])'
+    default: "[]"
+  exclude-channels:
+    description: 'JSON array of channel names/prefixes to exclude, suffix * for prefix match (e.g. ["notify-*", "random"])'
+    default: "[]"
+  exclude-url-hosts:
+    description: 'JSON array of hosts to exclude from link extraction (e.g. ["slack.com"])'
+    default: '["slack.com", "meet.google.com"]'
+  hours-back:
+    description: "Hours of history to include"
+    default: "24"
+  llm-model:
+    description: "LLM model for summarization (GitHub Models API)"
+    default: "openai/gpt-4.1-mini"
+  output-dir:
+    description: "Output directory for digest files"
+    default: "./output"
+
+outputs:
+  digest-path:
+    description: "Path to the generated digest markdown file"
+    value: ${{ steps.run.outputs.digest-path }}
+
+runs:
+  using: composite
+  steps:
+    - uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb # v2.0.3
+
+    - id: run
+      shell: bash
+      run: >-
+        deno run
+        --allow-env
+        --allow-net="${SLACK_WORKSPACE}.slack.com,models.github.ai"
+        --allow-write
+        "${ACTION_PATH}/main.ts"
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        SLACK_TOKEN: ${{ inputs.slack-token }}
+        SLACK_COOKIE: ${{ inputs.slack-cookie }}
+        SLACK_WORKSPACE: ${{ inputs.slack-workspace }}
+        GITHUB_TOKEN: ${{ github.token }}
+        MUST_READ_KEYWORDS: ${{ inputs.must-read-keywords }}
+        MUST_READ_MENTIONS: ${{ inputs.must-read-mentions }}
+        INCLUDE_PUBLIC_CHANNELS: ${{ inputs.include-public-channels }}
+        INCLUDE_PRIVATE_CHANNELS: ${{ inputs.include-private-channels }}
+        INCLUDE_GROUP_DMS: ${{ inputs.include-group-dms }}
+        INCLUDE_DIRECT_DMS: ${{ inputs.include-direct-dms }}
+        TARGET_CHANNELS: ${{ inputs.target-channels }}
+        EXCLUDE_CHANNELS: ${{ inputs.exclude-channels }}
+        EXCLUDE_URL_HOSTS: ${{ inputs.exclude-url-hosts }}
+        HOURS_BACK: ${{ inputs.hours-back }}
+        LLM_MODEL: ${{ inputs.llm-model }}
+        OUTPUT_DIR: ${{ inputs.output-dir }}
