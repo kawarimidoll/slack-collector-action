@@ -66,7 +66,7 @@ jobs:
     env:
       TZ: Asia/Tokyo
     steps:
-      - uses: kawarimidoll/slack-collector@v1
+      - uses: kawarimidoll/slack-collector-action@v1
         id: digest
         with:
           slack-token: ${{ secrets.SLACK_TOKEN }}
@@ -112,7 +112,7 @@ jobs:
 inputs では対応しきれないカスタマイズ（LLM
 プロンプトの変更、カテゴリ分けロジックの調整、
 出力フォーマットの変更など）が必要な場合は、このリポジトリをフォークしてコードを
-直接編集し、`uses: your-fork/slack-collector@main` で使用できます。
+直接編集し、`uses: your-fork/slack-collector-action@main` で使用できます。
 
 ## ローカル開発
 
