@@ -31,7 +31,8 @@ SLACK_WORKSPACE=your-workspace
 (`xoxd-...`) をコピーして `SLACK_COOKIE` に設定。
 
 > d cookie の有効期限は 1
-> 年以上。ログアウトやパスワード変更をしない限り失効しません。
+> 年以上らしい。ログアウトやパスワード変更をしない限りすぐには失効しないはず。
+> 失効したら再取得してください。
 
 ### 2. ワークフローを設定
 
@@ -66,7 +67,7 @@ jobs:
     env:
       TZ: Asia/Tokyo
     steps:
-      - uses: kawarimidoll/slack-collector-action@v1
+      - uses: kawarimidoll/slack-collector-action@<version>
         id: digest
         with:
           slack-token: ${{ secrets.SLACK_TOKEN }}
@@ -74,7 +75,7 @@ jobs:
           slack-workspace: ${{ secrets.SLACK_WORKSPACE }}
           must-read-keywords: '["myname", "important-keyword"]'
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@<version>
         with:
           name: digest-${{ github.run_id }}
           path: ${{ steps.digest.outputs.digest-path }}
@@ -115,6 +116,8 @@ inputs では対応しきれないカスタマイズ（LLM
 直接編集し、`uses: your-fork/slack-collector-action@main` で使用できます。
 
 ## ローカル開発
+
+ローカルで実行する場合は `GITHUB_TOKEN` の設定も必要です。
 
 ```sh
 # 環境変数を設定
